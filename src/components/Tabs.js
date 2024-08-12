@@ -1,52 +1,36 @@
-import React, { useState } from "react";
+import React from "react";
 
-const Tabs = ({ tabs }) => {
-  const [activeTab, setActiveTab] = useState(0);
-
-  const containerStyle = {
-    display: "flex",
-    boxShadow: "0px 4px 8px rgba(0, 0, 0, 0.1)",
-    borderRadius: "8px",
-    overflow: "hidden",
-    margin: "20px",
-  };
-
-  const tabButtonsStyle = {
-    display: "flex",
-    flexDirection: "column",
-    backgroundColor: "#f1f1f1",
-    minWidth: "150px",
-  };
-
-  const tabButtonStyle = (isActive) => ({
-    padding: "15px",
-    textAlign: "left",
-    backgroundColor: isActive ? "#ffffff" : "#f1f1f1",
-    borderLeft: isActive ? "4px solid #4CAF50" : "4px solid transparent",
-    cursor: "pointer",
-    fontWeight: isActive ? "bold" : "normal",
-  });
-
-  const tabContentStyle = {
-    padding: "20px",
-    backgroundColor: "#ffffff",
-    flexGrow: 1,
-  };
-
+const Tabs = ({ tabs, activeTab, onTabChange }) => {
   return (
-    <div style={containerStyle}>
-      <div style={tabButtonsStyle}>
+    <div style={{ display: "flex", boxShadow: "0px 4px 6px rgba(0,0,0,0.1)" }}>
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          borderRight: "1px solid #ddd",
+          padding: "10px",
+          width: "200px",
+        }}
+      >
         {tabs.map((tab, index) => (
           <button
             key={index}
-            onClick={() => setActiveTab(index)}
-            style={tabButtonStyle(activeTab === index)}
+            onClick={() => onTabChange(index)}
+            style={{
+              padding: "10px",
+              textAlign: "left",
+              border: "none",
+              backgroundColor: activeTab === index ? "#eee" : "transparent",
+              cursor: "pointer",
+              borderRadius: "5px",
+              marginBottom: "5px",
+            }}
           >
             {tab.label}
           </button>
         ))}
       </div>
-      <div style={tabContentStyle}>
+      <div style={{ flex: 1, padding: "20px" }}>
         {tabs[activeTab] && tabs[activeTab].content}
       </div>
     </div>
